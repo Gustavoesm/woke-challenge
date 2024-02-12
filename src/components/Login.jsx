@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 
+const config = require("./utils/config.json");
+
 const Login = () => {
   const { authenticatedUser, setAuthenticatedUser } = useAuth();
+  console.log(authenticatedUser);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -13,19 +17,25 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const attemptLogin = () => {
-    console.log(username, password);
-    if (username === "test" && password === "1234") {
-      toast.success("Login successful!");
-      setTimeout(() => {
-        setAuthenticatedUser({ user: username, isAuthenticated: true });
-      }, 5000);
-    } else {
-      toast.error("Login failed!");
-      setErrorMessage("Usuário ou senha inválidos.");
-    }
+    axios
+      .post(config["baseUrl"] + config["identityEndpoint"], {
+        username,
+        password,
+      })
+      .then(() => {
+        toast.success("Login successful!");
+        setTimeout(() => {
+          setAuthenticatedUser({ user: username, isAuthenticated: true });
+        }, 2000);
+      })
+      .catch(() => {
+        setErrorMessage("Usuário ou senha inválidos.");
+      });
   };
 
-  return !authenticatedUser ? (
+  return authenticatedUser.isAuthenticated ? (
+    <Navigate to="/home" replace={true} />
+  ) : (
     <div className="login-box">
       <div className="login-label">Login</div>
       <input
@@ -48,8 +58,6 @@ const Login = () => {
       {!!errorMessage && <div className="error-message">{errorMessage}</div>}
       <Toaster position="bottom-right" />
     </div>
-  ) : (
-    <Navigate to="/home" replace={true} />
   );
 };
 
