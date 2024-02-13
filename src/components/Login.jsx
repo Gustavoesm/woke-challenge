@@ -25,7 +25,7 @@ const Login = () => {
       .then(() => {
         toast.success("Login successful!");
         setTimeout(() => {
-          setAuthenticatedUser({ user: username, isAuthenticated: true });
+          setAuthenticatedUser({ username, isAuthenticated: true });
         }, 2000);
       })
       .catch(() => {
@@ -36,27 +36,29 @@ const Login = () => {
   return authenticatedUser.isAuthenticated ? (
     <Navigate to="/home" replace={true} />
   ) : (
-    <div className="login-box">
-      <div className="login-label">Login</div>
-      <input
-        type="text"
-        name="user"
-        id="username"
-        placeholder="usuário"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        name="pass"
-        id="passwd"
-        placeholder="senha"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit" className="submit-button" onClick={attemptLogin}>
-        Log in
-      </button>
-      {!!errorMessage && <div className="error-message">{errorMessage}</div>}
-      <Toaster position="bottom-right" />
+    <div>
+      <div className="login-box">
+        <div className="login-label">Login</div>
+        <input
+          type="text"
+          name="user"
+          id="username"
+          placeholder="usuário"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          name="pass"
+          id="passwd"
+          placeholder="senha"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="submit-button" onClick={attemptLogin}>
+          Log in
+        </button>
+        {!!errorMessage && <div className="error-message">{errorMessage}</div>}
+        <Toaster position="bottom-right" />
+      </div>
     </div>
   );
 };

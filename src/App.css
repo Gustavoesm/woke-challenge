@@ -84,3 +84,40 @@
   padding: 2px;
   border-radius: 4px;
 }
+
+.fill-page {
+  height: 100dvh;
+  width: 100dvw;
+  position: absolute;
+  background-color: cadetblue;
+}
+
+.content-box {
+  width: 60dvh;
+  min-height: 60dvh;
+  margin: 20dvh auto auto;
+  padding: 0.6rem;
+  font-weight: bolder;
+  color: whitesmoke;
+  background-color: steelblue;
+  border-radius: 16px;
+}
+
+.greet-message {
+  text-align: center;
+  text-decoration: underline;
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.personal-info {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 3rem;
+  margin-left: 1rem;
+}
+
+.user-data {
+  font-weight: initial;
+}
