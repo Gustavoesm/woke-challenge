@@ -15,10 +15,31 @@ const Home = () => {
   const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 
   const submitAction = () => {
-    toast.success(
-      "Dados enviados, você deverá receber uma resposta por email em nos próximos dias!",
-      { duration: 8000, icon: "ℹ️", style: { fontSize: "1.2rem" } }
-    );
+    axios
+      .post(
+        config["dataConsumeApi"],
+        {
+          fullName: userInfo.fullName,
+          phone: userInfo.phone,
+          email: userInfo.email,
+          birthDate: userInfo.birthDate,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + authenticatedUser.authToken,
+          },
+        }
+      )
+      .then(() => {
+        toast.success(
+          "Dados enviados, você deverá receber uma resposta por email em nos próximos dias!",
+          { duration: 8000, icon: "ℹ️", style: { fontSize: "1.2rem" } }
+        );
+      })
+      .catch((err) => {
+        toast.error("Não foi possível enviar os seus dados.");
+        console.log(err);
+      });
   };
 
   if (authenticatedUser.isAuthenticated && isEmptyObject(userInfo)) {
