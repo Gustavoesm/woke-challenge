@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Combobox from "react-widgets/Combobox";
+import { Toaster, toast } from "react-hot-toast";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 import { useAuth } from "../contexts/AuthContext";
-import { Toaster, toast } from "react-hot-toast";
-import axios from "axios";
+import avatar from "./utils/avatar.png";
 
 const config = require("./utils/config.json");
 
@@ -72,14 +74,21 @@ const Home = () => {
           {`Área restrita do usuário ${userInfo && userInfo.firstName}`}
         </h1>
         <div className="personal-info">
-          <div>{"Nome completo"}</div>
-          <div className="user-data">{`${userInfo && userInfo.fullName}`}</div>
-          <div>{"Telefone"}</div>
-          <div className="user-data">{`${userInfo && userInfo.phone}`}</div>
-          <div>{"Email"}</div>
-          <div className="user-data">{`${userInfo && userInfo.email}`}</div>
-          <div>{"Data de nascimento"}</div>
-          <div className="user-data">{`${userInfo && userInfo.birthDate}`}</div>
+          <div>
+            <div>{"Nome completo"}</div>
+            <div className="user-data">{`${
+              userInfo && userInfo.fullName
+            }`}</div>
+            <div>{"Telefone"}</div>
+            <div className="user-data">{`${userInfo && userInfo.phone}`}</div>
+            <div>{"Email"}</div>
+            <div className="user-data">{`${userInfo && userInfo.email}`}</div>
+            <div>{"Data de nascimento"}</div>
+            <div className="user-data">{`${
+              userInfo && userInfo.birthDate
+            }`}</div>
+          </div>
+          <img className="profile-picture" src={avatar} />
         </div>
         <div className="send-to-wrapper">
           <div className="send-to-label">
@@ -98,9 +107,16 @@ const Home = () => {
               ]}
             />
           </div>
-          <button className="send-to-button" onClick={submitAction}>
-            Enviar
-          </button>
+          <div className="button-wrapper">
+            <Button
+              variant="contained"
+              sx={{ width: "inherit", height: "inherit" }}
+              onClick={submitAction}
+              size="large"
+            >
+              Enviar
+            </Button>
+          </div>
           <Toaster position="bottom-right" />
         </div>
       </div>

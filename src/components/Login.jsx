@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
+import { Button } from "@mui/material";
 
 const config = require("./utils/config.json");
 
@@ -56,9 +57,15 @@ const Login = () => {
           placeholder="senha"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className="submit-button" onClick={attemptLogin}>
-          Log in
-        </button>
+        <div className="button-wrapper">
+          <Button
+            variant="contained"
+            sx={{ width: "inherit", height: "inherit" }}
+            onClick={attemptLogin}
+          >
+            Log in
+          </Button>
+        </div>
         {!!errorMessage && <div className="error-message">{errorMessage}</div>}
         <Toaster position="bottom-right" />
       </div>
