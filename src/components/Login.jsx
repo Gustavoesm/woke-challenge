@@ -9,7 +9,6 @@ const config = require("./utils/config.json");
 
 const Login = () => {
   const { authenticatedUser, setAuthenticatedUser } = useAuth();
-  console.log(authenticatedUser);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,10 +21,14 @@ const Login = () => {
         username,
         password,
       })
-      .then(() => {
+      .then((response) => {
         toast.success("Login successful!");
         setTimeout(() => {
-          setAuthenticatedUser({ username, isAuthenticated: true });
+          setAuthenticatedUser({
+            username,
+            authToken: response.data.data.token,
+            isAuthenticated: true,
+          });
         }, 2000);
       })
       .catch(() => {
@@ -38,7 +41,7 @@ const Login = () => {
   ) : (
     <div>
       <div className="login-box">
-        <div className="login-label">Login</div>
+        <h1 className="login-label">Login</h1>
         <input
           type="text"
           name="user"

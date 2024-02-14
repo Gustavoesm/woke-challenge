@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
+import "react-widgets/styles.css";
 
 const router = createBrowserRouter([
   {
